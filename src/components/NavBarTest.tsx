@@ -13,6 +13,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { routes } from "../routes/routes";
+import { NavLink } from "react-router-dom";
 
 interface Props {
   window?: () => Window;
@@ -36,13 +38,19 @@ export default function NavBarTest(props: Props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ul>
+          {routes.map((route) => {
+            const { id, to, name } = route;
+
+            return (
+              <ListItem key={id} disablePadding>
+                <ListItemButton sx={{ textAlign: "center" }}>
+                  <NavLink to={to}>{name}</NavLink>
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+        </ul>
       </List>
     </Box>
   );
@@ -69,7 +77,7 @@ export default function NavBarTest(props: Props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            Movies Land
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
@@ -100,7 +108,7 @@ export default function NavBarTest(props: Props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box color="primary" component="main" sx={{ p: 3 }}>
         <Toolbar />
         <Typography>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique

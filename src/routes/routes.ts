@@ -1,11 +1,11 @@
-import { Home, Plans, AboutUs, Categories } from "../pages";
+import { Home, MyList, AboutUs, Categories } from "../pages";
 import { Route } from "../types";
 
 export const routes: Route[] = [
   {
     id: 1,
-    to: "/home",
-    path: "/home",
+    to: "/",
+    path: "/",
     Component: Home,
     name: "Home",
   },
@@ -18,10 +18,10 @@ export const routes: Route[] = [
   },
   {
     id: 3,
-    to: "/plans",
-    path: "/plans",
-    Component: Plans,
-    name: "Plans",
+    to: "/mylist",
+    path: "/mylist",
+    Component: MyList,
+    name: "My List",
   },
   {
     id: 4,

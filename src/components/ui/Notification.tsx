@@ -16,6 +16,7 @@ const Notification: React.FC<NotificationProps> = ({
 }) => {
   return (
     <Snackbar
+      sx={{ backgroundColor: "black" }}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
       autoHideDuration={3000}
       open={open}

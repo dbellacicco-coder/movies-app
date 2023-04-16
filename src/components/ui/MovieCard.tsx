@@ -10,31 +10,24 @@ import {
   Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { MovieI } from "../../types";
 
-interface MovieCardProps {
-  adult?: boolean;
-  id?: number;
-  title: string;
-  overview: string;
-  poster_path?: string;
-  vote_average?: number;
-  vote_count?: number;
-}
-
-const MovieCard: React.FC<MovieCardProps> = ({
-  adult,
+const MovieCard: React.FC<MovieI> = ({
   id,
   title,
-  overview,
   poster_path,
+  release_date,
 }) => {
   const navigate = useNavigate();
+
   return (
     <Card sx={{ maxWidth: 200 }}>
       <CardMedia
         component="img"
         image={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={title}
+        sx={{ cursor: "pointer" }}
+        onClick={() => navigate(`/movie/${id}`)}
       />
 
       <CardContent>
@@ -44,17 +37,8 @@ const MovieCard: React.FC<MovieCardProps> = ({
           </Typography>
         </Box>
         <Divider />
-
-        <Typography
-          variant="subtitle2"
-          sx={{
-            mt: 2,
-            height: 200,
-            textOverflow: "ellipsis",
-            overflow: "hidden",
-          }}
-        >
-          {overview.length > 150 ? `${overview.slice(0, 150)}...` : overview}
+        <Typography sx={{ height: 100, overflow: "hidden" }} variant="h6">
+          Release Date: {release_date}
         </Typography>
       </CardContent>
 

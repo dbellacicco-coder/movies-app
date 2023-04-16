@@ -10,17 +10,20 @@ import {
 } from "@mui/material";
 import { useNotification } from "../context/NotificationContext";
 import { formValidator } from "../utils/formValidator";
-
-interface UserLogInInfoI {
-  userEmail: string;
-  userPassword: string;
-}
+import { useAppDispatch } from "../redux/hooks";
+import { userLogIn } from "../redux/slices/userSlice";
+import { UserInfoI } from "../types";
+import { useNavigate } from "react-router-dom";
+import { getUser } from "../services/getUser";
 
 const LogInPage: React.FC<{}> = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { getError, getSuccess } = useNotification();
-  const [userLogInInfo, setUserLogInInfo] = useState<UserLogInInfoI>({
+  const [userLogInInfo, setUserLogInInfo] = useState<UserInfoI>({
     userEmail: "",
     userPassword: "",
+    guest_session_id: "",
   });
 
   const logInData = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +35,21 @@ const LogInPage: React.FC<{}> = () => {
     formValidator
       .validate(userLogInInfo)
       .then(() => {
-        getSuccess(JSON.stringify(userLogInInfo));
+        getSuccess("Log in succesfully");
+        getUser
+          .getUserInfo()
+          .then((response) => {
+            dispatch(
+              userLogIn({
+                ...userLogInInfo,
+                guest_session_id: response.data.guest_session_id,
+              })
+            );
+            navigate(`/`);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       })
       .catch((error) => {
         getError(error.message);
@@ -59,7 +76,7 @@ const LogInPage: React.FC<{}> = () => {
                 name="userEmail"
                 fullWidth
                 type="text"
-                label="email"
+                label="User Email"
                 sx={{ mt: 2, mb: 1.5 }}
                 onChange={logInData}
               />

@@ -2,6 +2,10 @@ import { axiosInstance } from "./api";
 
 const myApiKey = "8f781d70654b5a6f2fa69770d1d115a3";
 const apiEndPoint = `movie/popular?api_key=${myApiKey}&language=en-US&page=1`;
+const apiEndPoint22 = `https://api.themoviedb.org/3/search/movie?api_key=${myApiKey}&query=avatar`;
+
+const apiEndPoint222 = (movieName: string) =>
+  `https://api.themoviedb.org/3/search/movie?api_key=${myApiKey}&query=${movieName}`;
 
 export const getMovies = {
   getPopularMovies: function ({ page }: { page: number }) {
@@ -20,5 +24,8 @@ export const getMovies = {
         },
       }
     );
+  },
+  getMovieByTitle: function (movieName: string) {
+    return axiosInstance.get(apiEndPoint222(movieName));
   },
 };

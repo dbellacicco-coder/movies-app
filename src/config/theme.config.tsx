@@ -8,7 +8,7 @@ interface ThemeConfigProps {
 export enum ThemPallet {
   bg = "#23272c",
   bg2 = "#36383b",
-  purple = "#37d717",
+  purple = "#17c2ed",
   font_main = '"Poppins" , monospace ',
   error_main = "#dc0404",
   bg_error_main = "rgba(243,67,54,0.1)",

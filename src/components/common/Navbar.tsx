@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -16,7 +16,11 @@ import {
   InputLabel,
   OutlinedInput,
   Stack,
+  TextField,
 } from "@mui/material";
+import { getMovies } from "../../services/getMovies";
+import { MovieI } from "../../types";
+import { useAppSelector } from "../../redux/hooks";
 
 interface NavbarProps {
   window?: () => Window;
@@ -26,11 +30,11 @@ const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
 
 const Navbar = (props: NavbarProps) => {
+  const user = useAppSelector((state) => state.UserReducer);
   const navigate = useNavigate();
-  const { window } = props;
-
+  console.log(user.userEmail);
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, mt: 2 }}>
       <AppBar position="fixed">
         <Toolbar>
           <Container maxWidth="xl">
@@ -54,27 +58,21 @@ const Navbar = (props: NavbarProps) => {
                 </Box>
               </Grid>
 
-              <Grid item>
-                <Stack direction="row" spacing={2}>
-                  <Button
-                    onClick={() => navigate("/login")}
-                    variant="contained"
-                  >
-                    Log In
-                  </Button>
-                  {/* <FormControl variant="outlined">
-                    <InputLabel>Seach movie</InputLabel>
-                    <OutlinedInput
-                      type="text"
-                      endAdornment={
-                        <InputAdornment position="start"></InputAdornment>
-                      }
-                      label="Seach"
-                    />
-                  </FormControl> */}
-                </Stack>
-              </Grid>
+              <Button onClick={() => navigate("/login")} variant="outlined">
+                LOG IN
+              </Button>
             </Grid>
+            {user.userEmail !== "" && (
+              <Box sx={{ textAlign: "center" }}>
+                <Typography
+                  onClick={() => navigate("/")}
+                  variant="h6"
+                  sx={{ fontWeight: 3, cursor: "pointer" }}
+                >
+                  Welcome...{user.userEmail.split("@")[0]}.
+                </Typography>
+              </Box>
+            )}
           </Container>
         </Toolbar>
       </AppBar>

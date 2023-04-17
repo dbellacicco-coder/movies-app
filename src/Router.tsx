@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { routes } from "./routes/routes";
 import Layout from "./components/common/Layout";
 import LogInPage from "./pages/LogInPage";
-import { Home } from "./pages";
 import MoviePage from "./pages/MoviePage";
 
 const APPRouter: React.FC<{}> = () => {

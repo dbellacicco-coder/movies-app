@@ -2,7 +2,6 @@ import { RatingMovieArgs } from "../types";
 import { axiosInstance } from "./api";
 
 const myApiKey = "8f781d70654b5a6f2fa69770d1d115a3";
-const guest_SesionId = "35b5caebf96e0438062d4f2c47011705";
 
 const rateMovieEndPoint = (id: number, guestId: string) =>
   `movie/${id}/rating?api_key=${myApiKey}&guest_session_id=${guestId}`;

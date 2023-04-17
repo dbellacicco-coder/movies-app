@@ -30,6 +30,11 @@ export const MyList = () => {
 
   return (
     <Container sx={{ textAlign: "center" }} maxWidth="xl">
+      <Button>
+        <Typography onClick={() => navigate("/")} variant="h6">
+          Home
+        </Typography>
+      </Button>
       {user.guest_session_id === "" && (
         <Box sx={{ textAlign: "center" }}>
           <Typography variant="h6" color="primary">
@@ -37,32 +42,21 @@ export const MyList = () => {
           </Typography>
         </Box>
       )}
-      <Button>
-        <Typography onClick={() => navigate("/")} variant="h6">
-          Home
-        </Typography>
-      </Button>
-      {user.guest_session_id !== "" && ratedMovieList!.length > 0 ? (
-        <Grid sx={{ my: 2 }} container spacing={2}>
-          {ratedMovieList?.map((movie) => {
-            const { title, id, poster_path, release_date } = movie;
-            return (
-              <Grid key={id} item>
-                <MovieCard
-                  title={title}
-                  poster_path={poster_path}
-                  id={id}
-                  release_date={release_date}
-                />
-              </Grid>
-            );
-          })}
-        </Grid>
-      ) : (
-        <Typography variant="h6" color="primary">
-          No tiene peli rateadas
-        </Typography>
-      )}
+      <Grid sx={{ my: 2 }} container spacing={2}>
+        {ratedMovieList?.map((movie) => {
+          const { title, id, poster_path, release_date } = movie;
+          return (
+            <Grid key={id} item>
+              <MovieCard
+                title={title}
+                poster_path={poster_path}
+                id={id}
+                release_date={release_date}
+              />
+            </Grid>
+          );
+        })}
+      </Grid>
     </Container>
   );
 };
